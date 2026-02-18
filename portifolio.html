@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alfred Wallace | Health Informatics & Systems Developer</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Roboto+Condensed:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px; /* Prevents the header from covering the section title */
+}
+        :root {
+            --bg-color: #050505;
+            --card-bg: #0f0f0f;
+            --primary-color: #3b82f6;
+            --text-main: #ffffff;
+            --text-dim: #a1a1aa;
+            --border-color: #27272a;
+            --transition: all 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        .price-card.featured li {
+    color: #ffffff; /* Brighter text for the premium card */
+    font-weight: 500;
+}
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+        /* --- NAVIGATION --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            position: sticky;
+            top: 0;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+        .logo { font-size: 1.5rem; font-weight: 800; }
+        .logo span { color: var(--primary-color); }
+        .nav-links { display: flex; list-style: none; gap: 2rem; }
+        .nav-links a { color: var(--text-dim); text-decoration: none; font-weight: 500; transition: var(--transition); }
+        .nav-links a:hover { color: var(--text-main); }
+
+        /* --- HERO --- */
+        .hero { padding: 100px 0; text-align: center; }
+        .badge { background: rgba(59, 130, 246, 0.1); color: var(--primary-color); padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; border: 1px solid var(--primary-color); text-transform: uppercase; letter-spacing: 1px; }
+        h1 { font-size: clamp(2.5rem, 8vw, 5rem); margin: 1rem 0; font-weight: 800; }
+        .subtitle { font-size: 1.5rem; color: var(--primary-color); margin-bottom: 1.5rem; }
+        .description { max-width: 600px; margin: 0 auto 2.5rem; color: var(--text-dim); }
+
+        .btn-primary, .btn-secondary {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        .btn-primary { background: var(--primary-color); color: white; margin-right: 10px; }
+        .btn-secondary { border: 1px solid var(--border-color); color: white; }
+
+        /* --- SECTIONS --- */
+        .section-title { text-align: center; margin-bottom: 3rem; font-size: 2.5rem; }
+        .service-grid, .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 5rem; }
+        
+        .service-card, .price-card { 
+            background: var(--card-bg); 
+            padding: 2.5rem 2rem; 
+            border-radius: 24px; 
+            border: 1px solid var(--border-color); 
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card:hover { border-color: var(--primary-color); transform: translateY(-5px); }
+        
+        /* --- PRICING SPECIFIC --- */
+        .price-card.featured { border: 2px solid var(--primary-color); position: relative; background: linear-gradient(145deg, #0f0f0f, #161b22); }
+        .price-tag { color: var(--primary-color); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; display: block; }
+        .amount { font-size: 2rem; font-weight: 800; margin: 1rem 0; color: #fff; }
+        .amount span { font-size: 1rem; color: var(--text-dim); font-weight: 400; }
+        .price-card ul { margin-top: 1.5rem; flex-grow: 1; }
+        .price-card li { margin-bottom: 12px; color: var(--text-dim); font-size: 0.95rem; display: flex; align-items: center; gap: 10px; }
+        .price-card li i { color: var(--primary-color); font-size: 0.8rem; }
+
+        /* --- FOOTER / CONTACT --- */
+        .contact-footer {
+            padding: 80px 0;
+            background: #0a0a0a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .social-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 40px 0;
+            gap: 40px;
+        }
+
+        .social-list li { list-style: none; }
+        .social-list a {
+            width: 180px; height: 60px; background: #fff; display: flex; align-items: center;
+            padding-left: 20px; text-decoration: none; transform: rotate(-30deg) skew(25deg);
+            box-shadow: -15px 15px 10px rgba(0,0,0,0.2); position: relative; transition: 0.5s;
+            font-family: 'Roboto Condensed', sans-serif;
+        }
+
+        .social-list a:before { content: ''; position: absolute; height: 100%; width: 20px; top: 0; left: -20px; background: #b1b1b1; transform: skewY(-45deg); }
+        .social-list a:after { content: ''; position: absolute; height: 20px; width: 100%; bottom: -20px; left: -10px; background: #b1b1b1; transform: skewX(-45deg); }
+        .social-list a:hover { transform: rotate(-30deg) skew(25deg) translate(15px, -10px); box-shadow: -40px 40px 40px rgba(0,0,0,0.4); }
+
+        .social-list .fa-brands { color: #262626; font-size: 30px; margin-right: 10px; }
+        .social-list span { color: #262626; font-size: 16px; letter-spacing: 1px; font-weight: bold; }
+
+        .li-fb:hover a { background: #3b5998; }
+        .li-wa:hover a { background: #25D366; }
+        .li-tk:hover a { background: #000000; }
+        .li-ig:hover a { background: #ce1b36; }
+        .social-list li:hover i, .social-list li:hover span { color: #fff; }
+
+        /* --- MODAL --- */
+        .popup { position: fixed; top: 0; left: 0; height: 100%; width: 100%; background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 2000; }
+        .popup-content { background: #fff; padding: 40px; border-radius: 20px; text-align: center; color: #333; max-width: 90%; width: 350px; }
+        .popup-content button { margin-top: 25px; padding: 12px 30px; background: var(--primary-color); color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: 600; }
+
+        /* --- RESPONSIVE --- */
+        /* Improved Responsive CSS */
+@media (max-width: 1024px) {
+    .container { padding: 0 1.5rem; }
+    .price-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+    .hero { padding: 60px 0; }
+    .nav-links { display: none; } /* Consider adding a hamburger menu later */
+    .section-title { font-size: 2rem; }
+    
+    .price-grid, .service-grid { 
+        grid-template-columns: 1fr; /* Stack cards on mobile */
+        gap: 1.5rem;
+    }
+
+    /* Fix social buttons rotating off-screen on small devices */
+    .social-list { 
+        gap: 20px; 
+        padding: 40px 10px; 
+    }
+    .social-list a { 
+        width: 140px; 
+        height: 50px; 
+        transform: rotate(-15deg) skew(10deg); /* Reduced angle for mobile */
+    }
+    .social-list a:hover {
+        transform: rotate(-15deg) skew(10deg) translate(5px, -5px);
+    }
+}
+
+@media (max-width: 480px) {
+    h1 { font-size: 2.8rem; }
+    .amount { font-size: 1.5rem; }
+    .social-list a {
+        width: 120px;
+        padding-left: 10px;
+    }
+    .social-list span { font-size: 12px; }
+}
+
+        /* Project Specific Styling */
+.project-card {
+    padding: 0 !important;
+    overflow: hidden;
+    background: #0a0a0a;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-img-wrapper {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.project-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.project-card:hover .project-img {
+    transform: scale(1.05);
+}
+
+.project-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-grow: 1;
+}
+
+.project-content h3 {
+    font-size: 1.25rem;
+    color: #fff;
+}
+
+.project-content p {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    margin-bottom: 15px;
+}
+
+/* Modal Enhancements */
+.instruction-step {
+    display: flex;
+    gap: 15px;
+    padding: 12px;
+    border-radius: 12px;
+    background: #f8f9fa;
+    transition: var(--transition);
+}
+
+.instruction-step:hover {
+    background: #f0f7ff;
+}
+/* --- HAMBURGER MENU LOGIC --- */
+.nav-btn {
+    display: none; /* Hidden on desktop */
+}
+
+@media (max-width: 768px) {
+    .nav-btn {
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .nav-btn label {
+        display: inline-block;
+        width: 30px;
+        height: 24px;
+        position: relative;
+    }
+
+    /* Hamburger bars */
+    .nav-btn label span {
+        display: block;
+        width: 100%;
+        height: 3px;
+        background-color: var(--text-main);
+        margin-bottom: 5px;
+        transition: var(--transition);
+    }
+
+    .nav-links {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--card-bg);
+        height: 0;
+        transition: all 0.3s ease-in;
+        overflow-y: hidden;
+        top: 70px;
+        left: 0;
+        padding-left: 2rem;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .nav-links li {
+        width: 100%;
+        padding: 1rem 0;
+    }
+
+    /* Toggle logic: when checkbox is checked, show menu */
+    #nav-check:checked ~ .nav-links {
+        height: calc(100vh - 70px);
+        overflow-y: auto;
+    }
+
+    .hire-me-link {
+        color: var(--primary-color) !important;
+    }
+}
+/* Highlights the active link in the navbar */
+.nav-links a.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+/* Premium Badge Styling */
+.badge {
+    padding: 8px 16px;
+    border-radius: 50px;
+    background: rgba(59, 130, 246, 0.1); /* Subtle primary color tint */
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.badge:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+}
+
+.badge i {
+    font-size: 0.9rem;
+}
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+    <div class="logo">Wallace<span>.</span></div>
+    
+    <input type="checkbox" id="nav-check" style="display: none;">
+    <div class="nav-btn">
+        <label for="nav-check">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+    </div>
+    
+    <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#pricing">Solutions</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#contact" class="hire-me-link">Hire Me</a></li>
+        <li><a href="#about">About</a></li>
+<li><a href="#skills">Skills</a></li>
+<li><a href="#reviews">Reviews</a></li>
+    </ul>
+</nav>
+    <header class="hero">
+        <div class="container">
+            <span class="badge">International Standard Solutions</span>
+            <h1>Alfred Wallace</h1>
+            <p class="subtitle">Health Informatics Specialist | Systems Architect | Full Stack Web Developer</p>
+            <p class="description">Bridging the gap between Healthcare and Technology with robust Laboratory, Pharmacy, and Enterprise (Business Digitalization) Management Systems.</p>
+            <div class="hero-btns">
+                <div style="display: flex; justify-content: center; gap: 40px; margin-top: 50px; flex-wrap: wrap;">
+    <div style="text-align: center;">
+        <h3 style="font-size: 2rem; color: #fff;">5+</h3>
+        <p style="font-size: 0.7rem; color: var(--primary-color); text-transform: uppercase;">Systems Deployed</p>
+    </div>
+    <div style="text-align: center;">
+        <h3 style="font-size: 2rem; color: #fff;">99.9%</h3>
+        <p style="font-size: 0.7rem; color: var(--primary-color); text-transform: uppercase;">System Uptime</p>
+    </div>
+    <div style="text-align: center;">
+        <h3 style="font-size: 2rem; color: #fff;">10+</h3>
+        <p style="font-size: 0.7rem; color: var(--primary-color); text-transform: uppercase;">Users Empowered</p>
+    </div>
+</div>
+                <a href="#pricing" class="btn-primary">View Solutions & Pricing</a>
+                <a href="#contact" class="btn-secondary">Start a Project</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="about" class="container" style="margin-bottom: 5rem; padding-top: 2rem;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; align-items: center;">
+        
+        <div>
+            <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">The Intersection of <span style="color: var(--primary-color);">Health & Code</span></h2>
+            <p style="color: var(--text-dim); margin-bottom: 1.2rem;">
+                My journey began in <strong>Health Information Science</strong>, where I studied the intricate workflows of clinical data and patient management. However, I quickly realized that the biggest bottleneck in modern healthcare wasn't a lack of data—it was the lack of <strong>efficient, user-friendly tools</strong> to manage it.
+            </p>
+            <p style="color: var(--text-dim); margin-bottom: 1.2rem;">
+                Driven by the need for better systems, I transitioned into <strong>Software Development</strong>. This dual-background allows me to speak two languages: the language of medical professionals (clinicians, pharmacists, and lab techs) and the language of modern engineering (PHP, MySQL, and JavaScript).
+            </p>
+            <p style="color: var(--text-main); font-weight: 600;">
+                Today, I don't just write code; I architect solutions that save time, reduce human error, and grow businesses.
+            </p>
+        </div>
+
+        <div class="service-card" style="background: linear-gradient(145deg, #0f0f0f, #1a1a1a); border-left: 5px solid var(--primary-color);">
+            <h3 style="margin-bottom: 1.5rem;">Why Work With Me?</h3>
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                <div style="display: flex; gap: 15px;">
+                    <i class="fas fa-stethoscope" style="color: var(--primary-color); font-size: 1.2rem;"></i>
+                    <div>
+                        <h4 style="font-size: 1rem;">Clinical Understanding</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-dim);">I understand HIPAA standards, EHR protocols, and pharmacy inventory logic natively.</p>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 15px;">
+                    <i class="fas fa-microchip" style="color: var(--primary-color); font-size: 1.2rem;"></i>
+                    <div>
+                        <h4 style="font-size: 1rem;">Full-Stack Capability</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-dim);">I build everything from the database architecture to the user interface.</p>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 15px;">
+                    <i class="fas fa-chart-line" style="color: var(--primary-color); font-size: 1.2rem;"></i>
+                    <div>
+                        <h4 style="font-size: 1rem;">Business-First Mindset</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-dim);">Whether it's a hospital or a retail mall, I focus on ROI and daily operational efficiency.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+    <section id="services" class="container">
+        <h2 class="section-title">Specialized Expertise</h2>
+        <div class="service-grid">
+            <div class="service-card">
+                <i class="fas fa-hospital-user" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                <h3>Healthcare Systems</h3>
+                <p>Developing comprehensive <strong>Hospital Management Systems (HMS)</strong> including clinic appointments, Laboratory (LIS), and Pharmacy modules.</p>
+            </div>
+            
+            <div class="service-card">
+                <i class="fas fa-server" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                <h3>Enterprise POS</h3>
+                <p>High-performance Inventory and Sales systems for Pharmacies, Retail, and Wholesale businesses with real-time analytics.</p>
+            </div>
+
+            <div class="service-card">
+                <i class="fas fa-microscope" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                <h3>Health Informatics</h3>
+                <p>Optimizing clinical workflows and <strong>Electronic Health Records (EHR)</strong> to enhance patient safety and operational efficiency.</p>
+            </div>
+
+            <div class="service-card">
+                <i class="fas fa-code" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                <h3>Web Engineering</h3>
+                <p>Scalable full-stack applications using PHP, MySQL, and modern JS frameworks, focused on data security and speed.</p>
+            </div>
+        </div>
+    </section>
+
+
+<section id="portfolio" class="container">
+    
+  <section class="container" style="margin-bottom: 5rem;">
+    <div style="text-align: center; margin-bottom: 3rem;">
+        <h2 class="section-title" style="margin-bottom: 0.5rem;">Industrial Solutions</h2>
+        <p style="color: var(--text-dim); max-width: 600px; margin: 0 auto;">
+            Proven enterprise systems across Healthcare and Retail sectors, built with security and scalability at the core.
+        </p>
+    </div>
+
+    <div style="background: var(--card-bg); padding: 2rem; border-radius: 24px; border: 1px solid var(--border-color);">
+        <h3 style="font-size: 1.1rem; text-align: center; margin-bottom: 1.5rem; color: var(--primary-color); text-transform: uppercase; letter-spacing: 1px;">
+            Specialized Tech Stack
+        </h3>
+        
+        <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
+            <span class="badge"><i class="fas fa-shield-halved"></i> Health Data Security</span>
+            <span class="badge"><i class="fas fa-database"></i> MySQL Database Design</span>
+            <span class="badge"><i class="fab fa-php"></i> PHP </span>
+            <span class="badge"><i class="fas fa-boxes-stacked"></i> Inventory Logic</span>
+            <span class="badge"><i class="fas fa-notes-medical"></i> Clinical Workflow</span>
+            <span class="badge"><i class="fas fa-network-wired"></i> Creative Business Idea</span>
+        </div>
+    </div>
+</section>
+
+<p style="text-align: center; color: var(--text-dim); margin: 2rem 0; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase;">
+    <i class="fas fa-arrow-down" style="color: var(--primary-color); margin-right: 10px;"></i> 
+    Implemented Projects and  real-world scenarios 
+    <i class="fas fa-arrow-down" style="color: var(--primary-color); margin-left: 10px;"></i>
+</p>
+    
+    <div class="service-grid">
+       
+
+        <div class="service-card project-card">
+            <div class="project-img-wrapper">
+                <img src="Screenshot 2026-02-02 143059.png" alt="Retail Complex" class="project-img">
+            </div>
+            <div class="project-content">
+                <span class="badge" style="font-size: 0.7rem;">Retail Enterprise</span>
+                <h3>Nyerere Complex POS</h3>
+                <p>An international-standard shopping destination system managing wholesale products, reliable hardware solutions, and staff access control.</p>
+                
+<a href="https://nyereremall.shop" target="_blank" class="btn-primary" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+    <i class="fas fa-external-link-alt"></i> Visit Live Project
+</a>
+            </div>
+        </div>
+
+        <div class="service-card project-card">
+            <div class="project-img-wrapper">
+                <img src="Screenshot 2026-02-17 190443.png" alt="Retail Complex" class="project-img">
+            </div>
+            <div class="project-content">
+                <span class="badge" style="font-size: 0.7rem;">Cosmetics shop</span>
+                <h3>Cosmetics shopping</h3>
+                <p>An international-standard cosmetics shopping destination system managing cosmetics products, reliable skin care solutions, and staff access control.</p>
+                
+            <a href="https://sweetmankacosmetics.co.tz" target="_blank" class="btn-primary" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+    <i class="fas fa-external-link-alt"></i> Visit Live Project
+</a>
+            </div>
+        </div>
+   
+         <div class="service-card project-card">
+            <div class="project-img-wrapper">
+                <img src="Screenshot 2026-02-02 143022.png" alt="Home Healthcare System" class="project-img">
+            </div>
+            <div class="project-content">
+                <span class="badge" style="font-size: 0.7rem;">Clinical Informatics</span>
+                <h3>Wallace Home Healthcare</h3>
+                <p>A sophisticated appointment booking system featuring real-time clinical excellence tracking and 24/7 emergency response integration.</p>
+                <button class="btn-primary" onclick="openInstructions('Healthcare HMS')" style="width:100%; margin-top:1rem; cursor:pointer;">Get Started</button>
+            </div>
+        </div>
+
+        <div class="service-card project-card">
+            <div class="project-img-wrapper">
+                <img src="Screenshot 2026-02-02 143201.png" alt="Pharmacy Management" class="project-img">
+            </div>
+            <div class="project-content">
+                <span class="badge" style="font-size: 0.7rem;">Pharmaceutical Systems</span>
+                <h3>Mapunda Pharmacy Hub</h3>
+                <p>Comprehensive pharmaceutical care portal with secure patient login, inventory management, and prescription tracking modules.</p>
+                <button class="btn-primary" onclick="openInstructions('Healthcare HMS')" style="width:100%; margin-top:1rem; cursor:pointer;">Get Started</button>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section id="skills" class="container" style="margin-bottom: 5rem;">
+    <h2 class="section-title">My Technical Skills</h2>
+    <div class="service-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+        <div class="service-card" style="padding: 1.5rem; text-align: center;">
+            <i class="fas fa-laptop-medical" style="font-size: 1.5rem; color: var(--primary-color);"></i>
+            <h4 style="margin-top:10px;">Health Tech</h4>
+            <p style="font-size: 0.8rem;">EHR, LIS, DICOM, ICD-10 Coding</p>
+        </div>
+        <div class="service-card" style="padding: 1.5rem; text-align: center;">
+            <i class="fas fa-code-branch" style="font-size: 1.5rem; color: var(--primary-color);"></i>
+            <h4 style="margin-top:10px;">Back-End</h4>
+            <p style="font-size: 0.8rem;">PHP, MySQL, Node.js</p>
+        </div>
+        <div class="service-card" style="padding: 1.5rem; text-align: center;">
+            <i class="fab fa-js" style="font-size: 1.5rem; color: var(--primary-color);"></i>
+            <h4 style="margin-top:10px;">Front-End</h4>
+            <p style="font-size: 0.8rem;">HTML,  Modern CSS, JavaScript, React</p>
+        </div>
+        <div class="service-card" style="padding: 1.5rem; text-align: center;">
+            <i class="fas fa-shield-alt" style="font-size: 1.5rem; color: var(--primary-color);"></i>
+            <h4 style="margin-top:10px;">Security</h4>
+            <p style="font-size: 0.8rem;">Data Encryption, HIPAA Standards</p>
+        </div>
+    </div>
+</section>
+
+
+
+<section id="pricing" class="container">
+        <h2 class="section-title">Solutions & Investment</h2>
+        <p style="text-align: center; color: var(--text-dim); margin-top: -2.5rem; margin-bottom: 3.5rem;">Scalable technology for healthcare clinics, retail, and enterprise businesses.</p>
+        
+        <div class="price-grid">
+            <div class="price-card">
+                <span class="price-tag">Business Growth</span>
+                <h4>Business Digitalization & POS Suite</h4>
+                <div class="amount">250k - 600k<span> TZS</span></div>
+                <p style="font-size: 0.85rem; color: var(--text-dim);">Specialized for Pharmacies, Hardwares, Bars, and Wholesale shops.</p>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> Inventory & Stock Tracking</li>
+                    <li><i class="fas fa-check-circle"></i> Daily Sales & Profit Reports</li>
+                    <li><i class="fas fa-check-circle"></i> Multi-User Staff Accounts</li>
+                    <li><i class="fas fa-check-circle"></i> Receipt Printing Integration</li>
+                </ul>
+                <button class="btn-primary" onclick="openInstructions('Bussiness')" style="width:100%; margin-top:1rem; cursor:pointer;">Get Started</button>
+            </div>
+
+                 <div class="price-card">
+    <span class="price-tag">Enterprise Retail</span>
+    <h4>Min-Supermarkets & Retail & Wholesale & Bar POS</h4>
+    <div class="amount">300k - 800k<span> TZS</span></div>
+    <p style="font-size: 0.85rem; color: var(--text-dim);">Built for Nyerere Complex-style retail hubs, Hardwares, and Pharmacies.</p>
+    <ul>
+        <li><i class="fas fa-check-circle"></i> Stock & Inventory Intelligence</li>
+        <li><i class="fas fa-check-circle"></i> Multi-Staff Access Control</li>
+        <li><i class="fas fa-check-circle"></i> Daily Profit/Loss Analytics</li>
+        <li><i class="fas fa-check-circle"></i> Automated Receipt Generation</li>
+    </ul>
+    <button class="btn-primary" onclick="openInstructions('Enterprise Retail')" style="width:100%; margin-top:1rem; cursor:pointer;">Get Started</button>
+</div>
+            <div class="price-card featured">
+                <span class="price-tag" style="color: #fff;">Operational Efficiency</span>
+                <h4>Smart Clinic HMS & Healthcare Appointments Systems</h4>
+                <div class="amount">500k - 1.5M<span> TZS</span></div>
+                <p style="font-size: 0.85rem; color: #d1d5db;">Integrated workflow for modern outpatient healthcare centers.</p>
+                <ul>
+                    <li><i class="fas fa-check-circle"></i> <strong>Live Patient Scheduling</strong></li>
+                    <li><i class="fas fa-check-circle"></i> Electronic Health Records (EHR)</li>
+                    <li><i class="fas fa-check-circle"></i> Clinical Lab Request Area</li>
+                     <li><i class="fas fa-check-circle"></i> Advanced Clinical Analytics</li>
+                    <li><i class="fas fa-check-circle"></i> Automated Billing & Pharmacy</li>
+                      <li><i class="fas fa-check-circle"></i> <strong>Laboratory Management (LIS)</strong></li>
+                </ul>
+                <button class="btn-primary" onclick="openInstructions('Healthcare HMS')" style="width:100%; margin-top:1rem; cursor:pointer;">Get Started</button>
+            </div>
+
+            <div class="price-card">
+    <span class="price-tag">Financial Tech</span>
+    <h4> Loans Management & Micro-Finance </h4>
+    <div class="amount">200k - 400k<span> TZS</span></div>
+    <p style="font-size: 0.85rem; color: var(--text-dim);">Digital tracking for lending groups, SACCOS, and private micro-lenders.</p>
+    <ul>
+        <li><i class="fas fa-check-circle"></i> Borrower Credit Scoring</li>
+        <li><i class="fas fa-check-circle"></i> Automated Interest Calculation</li>
+        <li><i class="fas fa-check-circle"></i> Repayment Schedules & Alerts</li>
+        <li><i class="fas fa-check-circle"></i> Penalty & Default Tracking</li>
+    </ul>
+    <button class="btn-primary" onclick="openInstructions('Loans Management System')" style="width:100%; margin-top:1rem; cursor:pointer;">Get Started</button>
+</div>
+
+<div class="price-card">
+    <span class="price-tag">Supply Chain</span>
+    <h4>Store & Warehouse Management System</h4>
+    <div class="amount">200k - 500k<span> TZS</span></div>
+    <p style="font-size: 0.85rem; color: var(--text-dim);">For all types of storage: Food, Construction materials, or General Cargo.</p>
+    <ul>
+        <li><i class="fas fa-check-circle"></i> Batch & Expiry Date Tracking</li>
+        <li><i class="fas fa-check-circle"></i> Low Stock Automated Alerts</li>
+        <li><i class="fas fa-check-circle"></i> Supplier & GRN Management</li>
+        <li><i class="fas fa-check-circle"></i> Multi-Warehouse Syncing</li>
+    </ul>
+    <button class="btn-primary" onclick="openInstructions('Store Management System')" style="width:100%; margin-top:1rem; cursor:pointer;">Get Started</button>
+</div>
+            
+        </div>
+    </section>
+
+    <div class="popup" id="instruction-modal">
+        <div class="popup-content" style="width: 500px; max-width: 95%; text-align: left;">
+            <h3 id="modal-service-title" style="color: var(--primary-color); margin-bottom: 15px;">Service Implementation</h3>
+            <p style="margin-bottom: 20px; font-weight: 600;">How I deliver your <span id="target-service">solution</span>:</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                <div style="display: flex; gap: 15px;">
+                    <div style="background: var(--primary-color); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold;">1</div>
+                    <div>
+                        <p style="font-weight: bold; margin: 0;">Discovery & Audit</p>
+                        <p style="font-size: 0.85rem; color: #666; margin: 0;">I analyze your current business/clinical workflow to identify specific gaps.</p>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 15px;">
+                    <div style="background: var(--primary-color); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold;">2</div>
+                    <div>
+                        <p style="font-weight: bold; margin: 0;">System Prototyping</p>
+                        <p style="font-size: 0.85rem; color: #666; margin: 0;">I build a mock-up of the dashboard and database for your early feedback.</p>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 15px;">
+                    <div style="background: var(--primary-color); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold;">3</div>
+                    <div>
+                        <p style="font-weight: bold; margin: 0;">Deployment & Training</p>
+                        <p style="font-size: 0.85rem; color: #666; margin: 0;">Live installation of the system with full training for your staff or medical team.</p>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 15px;">
+                    <div style="background: var(--primary-color); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold;">4</div>
+                    <div>
+                        <p style="font-weight: bold; margin: 0;">Continuous Technical Support</p>
+                        <p style="font-size: 0.85rem; color: #666; margin: 0;">Ongoing technical maintenance and monthly data backup security audits.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 25px; border-top: 1px solid #eee; padding-top: 15px; display: flex; justify-content: space-between; align-items: center;">
+                <p style="font-size: 0.75rem; color: #888;">Ready to proceed?</p>
+                <div>
+                    <button onclick="closeInstructions()" style="background: #eee; color: #333; margin: 0; padding: 10px 15px;">Close</button>
+                    <button onclick="window.location.href='#contact'; closeInstructions();" style="margin: 0; padding: 10px 20px;">Contact Me</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Logic for the Instruction Modal
+        function openInstructions(serviceName) {
+            document.getElementById("target-service").textContent = serviceName;
+            document.getElementById("modal-service-title").textContent = serviceName + " Roadmap";
+            document.getElementById("instruction-modal").style.display = "flex";
+        }
+
+        function closeInstructions() {
+            document.getElementById("instruction-modal").style.display = "none";
+        }
+    </script>
+
+<section id="reviews" class="container" style="margin-bottom: 5rem;">
+    <h2 class="section-title">Client Feedback</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+        <div class="service-card" style="background: #0a0a0a;">
+            <h3 style="margin-bottom: 1rem; font-size: 1.2rem;">Leave a Review</h3>
+            <div id="star-rating" style="color: #fbceb1; margin-bottom: 1rem; font-size: 1.5rem; cursor: pointer;">
+                <i class="far fa-star" data-value="1"></i>
+                <i class="far fa-star" data-value="2"></i>
+                <i class="far fa-star" data-value="3"></i>
+                <i class="far fa-star" data-value="4"></i>
+                <i class="far fa-star" data-value="5"></i>
+            </div>
+            <input type="text" id="reviewer-name" placeholder="Your Name/Company" style="width: 100%; padding: 10px; background: #1a1a1a; border: 1px solid var(--border-color); color: white; border-radius: 8px; margin-bottom: 10px;">
+            <textarea id="review-text" placeholder="Share your experience..." rows="4" style="width: 100%; padding: 10px; background: #1a1a1a; border: 1px solid var(--border-color); color: white; border-radius: 8px; margin-bottom: 10px; resize: none;"></textarea>
+            <button onclick="submitReview()" class="btn-primary" style="width: 100%; border: none; cursor: pointer;">Post Review</button>
+        </div>
+
+        <div id="review-feed" style="display: flex; flex-direction: column; gap: 1rem; max-height: 450px; overflow-y: auto; padding-right: 10px;">
+            <div class="service-card" style="padding: 1.5rem; border-left: 3px solid var(--primary-color);">
+                <div style="color: #fbceb1; font-size: 0.8rem; margin-bottom: 5px;">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p style="font-size: 0.85rem; color: var(--text-dim);">"The Pharmacy Hub system is world-class. Alfred understands the medical workflow perfectly."</p>
+                <h4 style="font-size: 0.8rem; margin-top: 10px;">- Mapunda Pharmacy Hub</h4>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="request-quote" class="container" style="margin-bottom: 5rem;">
+    <h2 class="section-title">Start Your Project</h2>
+    <div class="service-card" style="max-width: 800px; margin: 0 auto; background: #0a0a0a;">
+        <form id="quoteForm" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div style="grid-column: span 2;">
+                <label style="display: block; margin-bottom: 8px; font-size: 0.9rem; color: var(--text-dim);">Which system do you need?</label>
+                <select id="system-type" style="width: 100%; padding: 12px; background: #1a1a1a; border: 1px solid var(--border-color); color: white; border-radius: 8px; outline: none;">
+                    <option value="Health HMS">Smart Clinic / Hospital HMS</option>
+                    <option value="POS Retail">Retail & Inventory POS</option>
+                    <option value="Pharmacy Hub">Pharmacy Management System</option>
+                    <option value="Loans Management">Loans & Micro-Finance System</option>
+                    <option value="Warehouse">Warehouse & Store Management</option>
+                    <option value="Other">Custom Web Solution</option>
+                </select>
+            </div>
+
+            <div style="grid-column: span 2;">
+                <label style="display: block; margin-bottom: 8px; font-size: 0.9rem; color: var(--text-dim);">Estimated Investment Range (TZS)</label>
+                <select id="budget-range" style="width: 100%; padding: 12px; background: #1a1a1a; border: 1px solid var(--border-color); color: white; border-radius: 8px; outline: none;">
+                    <option value="250k-500k">250,000 - 500,000</option>
+                    <option value="500k-1M">500,000 - 1,000,000</option>
+                    <option value="1M-3M">1,000,000 - 3,000,000</option>
+                    <option value="Above 3M">Above 3,000,000</option>
+                </select>
+            </div>
+
+            <div style="grid-column: span 1;">
+                <input type="text" id="client-name" placeholder="Full Name" required style="width: 100%; padding: 12px; background: #1a1a1a; border: 1px solid var(--border-color); color: white; border-radius: 8px;">
+            </div>
+            <div style="grid-column: span 1;">
+                <input type="email" id="client-email" placeholder="Email Address" required style="width: 100%; padding: 12px; background: #1a1a1a; border: 1px solid var(--border-color); color: white; border-radius: 8px;">
+            </div>
+
+            <div style="grid-column: span 2;">
+                <textarea id="project-desc" placeholder="Briefly describe your business needs..." rows="4" style="width: 100%; padding: 12px; background: #1a1a1a; border: 1px solid var(--border-color); color: white; border-radius: 8px; resize: none;"></textarea>
+            </div>
+
+            <button type="button" onclick="sendInquiry()" class="btn-primary" style="grid-column: span 2; border: none; cursor: pointer; padding: 15px;">
+                <i class="fas fa-paper-plane" style="margin-right: 10px;"></i> Send Request
+            </button>
+        </form>
+    </div>
+</section>
+
+    <footer id="contact" class="contact-footer">
+        <h2 class="section-title">Let's Collaborate</h2>
+        <p style="color: var(--text-dim); margin-bottom: 20px;">Connect with me via professional and social platforms</p>
+        
+        <ul class="social-list">
+            <li class="li-fb"><a href="#" onclick="showPopup('Facebook')"><i class="fa-brands fa-facebook-f"></i><span>Facebook</span></a></li>
+            <li class="li-wa"><a href="https://wa.me/255787743035" target="_blank" onclick="showPopup('WhatsApp')"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></a></li>
+            <li class="li-tk"><a href="https://www.tiktok.com/@alfredy.wallace" target="_blank" onclick="showPopup('TikTok')"><i class="fa-brands fa-tiktok"></i><span>TikTok</span></a></li>
+            <li class="li-ig"><a href="https://www.instagram.com/wallacealfred22" target="_blank" onclick="showPopup('Instagram')"><i class="fa-brands fa-instagram"></i><span>Instagram</span></a></li>
+        </ul>
+        <p style="margin-top: 50px; color: var(--text-dim); font-size: 0.8rem;">&copy; 2024 Alfred Wallace | Health Information Science Specialist.</p>
+    </footer>
+
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <h3 id="popup-title">Inquiry Sent</h3>
+            <p>Thank you for reaching out. I will review your request and respond shortly.</p>
+            <button onclick="hidePopup()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.service-card, .price-card, .social-list li').forEach(el => {
+            el.classList.add('reveal-hidden');
+            observer.observe(el);
+        });
+
+        function showPopup(platform) {
+            document.getElementById("popup-title").textContent = "Connecting via " + platform;
+            document.getElementById("popup").style.display = "flex";
+        }
+
+        function hidePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+        document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        document.getElementById('nav-check').checked = false;
+    });
+});
+const sections = document.querySelectorAll("section");
+const navLi = document.querySelectorAll(".nav-links a");
+
+window.addEventListener("scroll", () => {
+  let current = "";
+  sections.forEach((section) => {
+    const sectionTop = section.offsetTop;
+    if (pageYOffset >= sectionTop - 100) {
+      current = section.getAttribute("id");
+    }
+  });
+
+  navLi.forEach((a) => {
+    a.classList.remove("active");
+    if (a.getAttribute("href").includes(current)) {
+      a.classList.add("active");
+    }
+  });
+});
+
+let selectedRating = 0;
+const stars = document.querySelectorAll('#star-rating i');
+
+stars.forEach(star => {
+    star.addEventListener('click', (e) => {
+        selectedRating = e.target.getAttribute('data-value');
+        updateStars(selectedRating);
+    });
+});
+
+function updateStars(rating) {
+    stars.forEach(star => {
+        if (star.getAttribute('data-value') <= rating) {
+            star.classList.replace('far', 'fas');
+        } else {
+            star.classList.replace('fas', 'far');
+        }
+    });
+}
+
+function submitReview() {
+    const name = document.getElementById('reviewer-name').value;
+    const text = document.getElementById('review-text').value;
+    const feed = document.getElementById('review-feed');
+
+    if (!name || !text || selectedRating === 0) {
+        alert("Please provide a name, review, and star rating!");
+        return;
+    }
+
+    const newReview = document.createElement('div');
+    newReview.className = 'service-card';
+    newReview.style.padding = '1.5rem';
+    newReview.style.borderLeft = '3px solid #25D366'; // Green for new live reviews
+    
+    let starHtml = '';
+    for(let i=0; i<5; i++) {
+        starHtml += i < selectedRating ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
+    }
+
+    newReview.innerHTML = `
+        <div style="color: #fbceb1; font-size: 0.8rem; margin-bottom: 5px;">${starHtml}</div>
+        <p style="font-size: 0.85rem; color: var(--text-dim);">"${text}"</p>
+        <h4 style="font-size: 0.8rem; margin-top: 10px;">- ${name}</h4>
+    `;
+
+    feed.prepend(newReview);
+    // Clear form
+    document.getElementById('reviewer-name').value = '';
+    document.getElementById('review-text').value = '';
+    updateStars(0);
+}
+
+function sendInquiry() {
+    const system = document.getElementById('system-type').value;
+    const budget = document.getElementById('budget-range').value;
+    const name = document.getElementById('client-name').value;
+    const email = document.getElementById('client-email').value;
+
+    if (!name || !email) {
+        alert("Please provide your name and email.");
+        return;
+    }
+
+    // You can later connect this to an email service like EmailJS or a PHP backend
+    console.log(`Inquiry from ${name}: System: ${system}, Budget: ${budget}`);
+    
+    // Show your existing success popup
+    showPopup('Direct Request');
+    
+    // Reset form
+    document.getElementById('quoteForm').reset();
+}
+    </script>
+</body>
+</html>
